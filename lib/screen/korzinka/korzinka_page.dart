@@ -59,8 +59,7 @@ class _KorzinkaPageState extends State<KorzinkaPage> {
     });
   }
 
-  int get totalQuantity =>
-      cart.fold(0, (sum, item) => sum + ((item['quantity'] ?? 1) as num).toInt());
+  int get totalQuantity =>cart.fold(0, (sum, item) => sum + ((item['quantity'] ?? 1) as num).toInt());
 
   int get totalSum => cart.fold(
       0,
