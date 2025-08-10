@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:water_go_app_04_08_2025/screen/auth/contact_us_page.dart';
 import 'package:water_go_app_04_08_2025/screen/auth/oferta_page.dart';
 import 'package:water_go_app_04_08_2025/screen/profile/update_profile_page.dart';
+import 'package:water_go_app_04_08_2025/screen/splash/splash_page.dart';
 import 'package:water_go_app_04_08_2025/screen/widget/not_token_widget.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -24,14 +25,12 @@ class ProfilePage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: token == null
             ? NotTokenWidget(lang: lang)
-            : _buildProfile(context, lang),
+            : _buildProfile(context, lang, box.read('name'), box.read('phone')),
       ),
     );
   }
 
-  Widget _buildProfile(BuildContext context, String lang) {
-    final String fullName = "Elshod Musurmonov";
-    final String phone = "+998 94 520 4004";
+  Widget _buildProfile(BuildContext context, String lang, String fullName, String phone) {
     return Column(
       children: [
         const SizedBox(height: 20),
@@ -137,8 +136,9 @@ class ProfilePage extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               final box = GetStorage();
-              box.remove('token');
+              box.erase();
               Navigator.pop(context);
+              Get.offAll(() => SplashPage());
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             child: Text(lang == 'uz' ? "Chiqish" : "Выйти",style: TextStyle(color: Colors.white),),
