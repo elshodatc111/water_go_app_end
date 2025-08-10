@@ -11,7 +11,7 @@ class NotTokenWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const SizedBox(height: 50),
-        Image.asset('assets/images/login01.png', height: 256),
+        Image.asset('assets/images/login03.png', height: 256),
         const SizedBox(height: 32),
         lang == 'uz'
             ? Text(

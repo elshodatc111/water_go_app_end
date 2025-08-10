@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:water_go_app_04_08_2025/const/color_const.dart';
+import 'package:water_go_app_04_08_2025/screen/auth/auth_code_page.dart';
 import 'package:water_go_app_04_08_2025/screen/auth/oferta_page.dart';
 
 class AuthPhonePage extends StatefulWidget {
@@ -126,9 +127,8 @@ class _AuthPhonePageState extends State<AuthPhonePage> {
                   onPressed:
                       isButtonActive
                           ? () {
-                            String fullPhone =
-                                '+998${maskFormatter.getUnmaskedText()}';
-                            print("Yuborilayotgan raqam: $fullPhone");
+                            String fullPhone = '+998${maskFormatter.getUnmaskedText()}';
+                            Get.to(()=>AuthCodePage(number: fullPhone));
                           }
                           : null,
                   style: ElevatedButton.styleFrom(
