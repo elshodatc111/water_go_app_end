@@ -90,7 +90,10 @@ class OrderPage extends StatelessWidget {
         ),
         body:
             token == null
-                ? Center(child: NotTokenWidget(lang: lang))
+                ? Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(child: NotTokenWidget(lang: lang)),
+                )
                 : FutureBuilder<Map<String, dynamic>>(
                   future: _fetchOrders(),
                   builder: (context, snapshot) {
