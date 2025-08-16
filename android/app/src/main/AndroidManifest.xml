@@ -1,12 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!-- Internet ruxsati -->
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- SMS ruxsatlari (runtime permission so‘rash kerak bo‘ladi) -->
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
 
     <!-- Tarmoq holatini bilish -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

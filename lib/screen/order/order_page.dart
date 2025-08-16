@@ -109,12 +109,43 @@ class OrderPage extends StatelessWidget {
                         snapshot.data!["neactive"] as List<dynamic>;
                     return TabBarView(
                       children: [
-                        _orderList(lang, activeOrders),
-                        _orderList(lang, neactiveOrders),
+                        activeOrders.length != 0
+                            ? _orderList(lang, activeOrders)
+                            : emptyItem(lang, 'active'),
+                        neactiveOrders.length != 0
+                            ? _orderList(lang, neactiveOrders)
+                            : emptyItem(lang, 'success'),
                       ],
                     );
                   },
                 ),
+      ),
+    );
+  }
+
+  Widget emptyItem(String lang, String type) {
+    final String title =
+        type == 'active'
+            ? lang == 'uz'
+                ? "Sizda aktiv buyurtmalar mavjud emas."
+                : "У вас нет активных заказов."
+            : lang == 'uz'
+            ? "Sizda buyurtmalar mavjud emas."
+            : "У вас нет заказов.";
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset('assets/images/empte.png', height: 180),
+          const SizedBox(height: 24),
+          Text(
+            title,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
@@ -158,7 +189,7 @@ class OrderPage extends StatelessWidget {
         isStatus = "Yangi";
         break;
       case 'accepted':
-        statusColor = Colors.blue;
+        statusColor = Colors.blue.shade200;
         isStatus = "Qabul qilindi";
         break;
       case 'pedding':
@@ -193,6 +224,23 @@ class OrderPage extends StatelessWidget {
               width: 50,
               height: 50,
               fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Image.asset(
+                  'assets/images/card.jpg', // default rasm
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.cover,
+                );
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  'assets/images/card.jpg', // agar link xato bo‘lsa
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.cover,
+                );
+              },
             ),
           ),
           title: Text(

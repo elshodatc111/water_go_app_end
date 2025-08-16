@@ -77,7 +77,7 @@ class _MainPageState extends State<MainPage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.access_time),
-              label: box.read('lang') == 'uz' ? 'Buyurtmalar' : 'Заказы',
+              label: box.read('lang') == 'uz' ? 'Buyurtma' : 'Заказы',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_outline),

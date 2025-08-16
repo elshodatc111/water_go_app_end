@@ -22,7 +22,7 @@ class _AppbarTabWidgetState extends State<AppbarTabWidget> {
           return TabBar(
             indicator: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20)),
             ),
             labelColor: Colors.blue,
             unselectedLabelColor: Colors.white,
