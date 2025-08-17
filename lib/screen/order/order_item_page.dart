@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:water_go_app_04_08_2025/screen/order/order_cancel_page.dart';
+import 'package:water_go_app_04_08_2025/screen/order/order_comment_page.dart';
 
 class OrderItemPage extends StatefulWidget {
   final int id;
@@ -23,7 +24,7 @@ class _OrderItemPageState extends State<OrderItemPage> {
       "id": 1,
       "orderId": "#1",
       "name": "WaterGo",
-      "status": "new", // new, accepted, pedding, success, cancel
+      "status": "success", // new, accepted, pedding, success, cancel
       "orderCount": 8,
       "orderPrice": "25 000 USD",
       "data": {
@@ -39,6 +40,7 @@ class _OrderItemPageState extends State<OrderItemPage> {
       "courier": "Elshod Musurmonov",
       "courierPhone": "+998908830451",
       "operator": "+998908830450",
+      "comment": false, // true
     };
   }
 
@@ -55,9 +57,9 @@ class _OrderItemPageState extends State<OrderItemPage> {
         );
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Xatolik: $e")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Xatolik: $e")));
     }
   }
 
@@ -65,10 +67,7 @@ class _OrderItemPageState extends State<OrderItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white, // oq fon
-      appBar: AppBar(
-        title: const Text("Buyurtma haqida"),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text("Buyurtma haqida"), centerTitle: true),
       body: FutureBuilder<Map<String, dynamic>>(
         future: loadItem(),
         builder: (context, snapshot) {
@@ -102,10 +101,9 @@ class _OrderItemPageState extends State<OrderItemPage> {
               ),
               Text(
                 "${item['orderId']}",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(color: Colors.grey[700]),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(color: Colors.grey[700]),
               ),
             ],
           ),
@@ -117,8 +115,11 @@ class _OrderItemPageState extends State<OrderItemPage> {
             return ListTile(
               dense: true,
               contentPadding: EdgeInsets.zero,
-              title: Text("${index + 1}. ${product['name']}", style: TextStyle(fontSize: 16.0),),
-              trailing: Text(product['calc'], style: TextStyle(fontSize: 16.0),),
+              title: Text(
+                "${index + 1}. ${product['name']}",
+                style: TextStyle(fontSize: 16.0),
+              ),
+              trailing: Text(product['calc'], style: TextStyle(fontSize: 16.0)),
             );
           }),
 
@@ -178,12 +179,10 @@ class _OrderItemPageState extends State<OrderItemPage> {
                     Get.to(() => OrderCancelPage(id: widget.id));
                   },
                   child: Text(
-                    lang == 'uz'
-                        ? "Buyurtmani bekor qilish"
-                        : "Отмена заказа",
+                    lang == 'uz' ? "Buyurtmani bekor qilish" : "Отмена заказа",
                   ),
                 ),
-                SizedBox(height: 16.0,),
+                SizedBox(height: 16.0),
               ],
             ),
           if (item['status'] == 'pedding')
@@ -202,7 +201,27 @@ class _OrderItemPageState extends State<OrderItemPage> {
                         ? "Kuryer bilan bog'lanish"
                         : "Связаться с курьером",
                   ),
-                ),SizedBox(height: 16.0,)
+                ),
+                SizedBox(height: 16.0),
+              ],
+            ),
+          if (item['comment'] == false && item['status'] == 'success')
+            Column(
+              children: [
+                FilledButton(
+                  style: FilledButton.styleFrom(
+                    backgroundColor: Colors.yellow,
+                    minimumSize: const Size.fromHeight(48),
+                  ),
+                  onPressed: () {
+                    Get.to(() => OrderCommentPage(orderId: item['id'],lang: lang,));
+                  },
+                  child: Text(
+                    lang == 'uz' ? "Buyurtmani baholash" : "Заказать оценку",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+                SizedBox(height: 16.0),
               ],
             ),
 

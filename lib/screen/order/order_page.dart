@@ -76,7 +76,7 @@ class OrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final box = GetStorage();
-    final token = box.read('token');
+    final token = box.read('token') ?? 'null';
     final lang = box.read('lang') ?? 'uz';
 
     return DefaultTabController(
@@ -86,10 +86,10 @@ class OrderPage extends StatelessWidget {
           backgroundColor: Colors.blue,
           elevation: 0,
           centerTitle: true,
-          title: AppbarTabWidget(lang: lang),
+          title: AppbarTabWidget(lang: lang,token: token,),
         ),
         body:
-            token == null
+            token == 'null'
                 ? Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Center(child: NotTokenWidget(lang: lang)),

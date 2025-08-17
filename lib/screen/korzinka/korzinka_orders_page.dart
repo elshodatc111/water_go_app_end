@@ -43,18 +43,13 @@ class _KorzinkaOrdersPageState extends State<KorzinkaOrdersPage> {
     final orderPayload = {
       "products": widget.orderData, // [{id: 1, quantity: 1},{id: 2, quantity: 3}]
       "token": GetStorage().read('token') ?? '',
-      "addres": GetStorage().read('addres') ?? '',
-      "latude": GetStorage().read('latude') ?? '',
-      "longtude": GetStorage().read('longtude') ?? '',
+      "address": GetStorage().read('address') ?? '',
+      "latitude": GetStorage().read('latitude') ?? '',
+      "longitude": GetStorage().read('longitude') ?? '',
     };
-
     print("📤 APIga yuborilayotgan ma'lumotlar:");
     print(orderPayload);
-
-    // API so'rov o'rniga 2 sekund kutish
     await Future.delayed(const Duration(seconds: 2));
-
-    // API muvaffaqiyatli javob qaytardi deb faraz qilamiz
     final storage = GetStorage();
     storage.remove('cart'); // Savatni bo‘shatish
     print("🛒 Cart ma'lumotlari tozalandi!");
